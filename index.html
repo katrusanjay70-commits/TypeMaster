@@ -3,790 +3,792 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>10 Finger Typing Master</title>
-  <link rel="stylesheet" href="style.css">
+<title>Urban IT Sync — Internships for IT & Non-IT Students</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-900:#081633;
+    --navy-800:#0d2050;
+    --navy-700:#123072;
+    --blue-600:#1e63c9;
+    --cyan-400:#3fc0f0;
+    --amber-400:#ffb130;
+    --paper:#f3f7fc;
+    --paper-2:#e9f0fa;
+    --slate-600:#4d5b78;
+    --slate-800:#22304d;
+    --white:#ffffff;
+    --line: rgba(255,255,255,0.14);
+    --radius: 14px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'IBM Plex Sans', sans-serif;
+    color:var(--slate-800);
+    background:var(--paper);
+    line-height:1.55;
+  }
+  h1,h2,h3,h4{
+    font-family:'Space Grotesk', sans-serif;
+    margin:0 0 .4em 0;
+    color:var(--navy-900);
+    letter-spacing:-0.01em;
+  }
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:1160px; margin:0 auto; padding:0 28px;}
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:.72rem;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--blue-600);
+    display:flex; align-items:center; gap:8px;
+    margin-bottom:14px;
+  }
+  .eyebrow::before{content:"";width:20px;height:1px;background:var(--blue-600);}
+
+  /* ---------- NAV ---------- */
+  header.site{
+    position:sticky; top:0; z-index:50;
+    background:rgba(8,22,51,0.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 28px; max-width:1160px; margin:0 auto;
+  }
+  .brand{display:flex; align-items:center; gap:10px; color:#fff; text-decoration:none;}
+  .brand svg{width:34px;height:34px;}
+  .brand-text{font-family:'Space Grotesk'; font-weight:700; font-size:1.02rem; line-height:1.1; color:#fff;}
+  .brand-text span{display:block; font-size:.62rem; letter-spacing:.18em; color:var(--cyan-400); font-weight:500;}
+  .links{display:flex; gap:28px; list-style:none; margin:0; padding:0;}
+  .links a{
+    color:#cfd9ee; text-decoration:none; font-size:.9rem; font-weight:500;
+    transition:color .15s;
+  }
+  .links a:hover, .links a:focus-visible{color:#fff;}
+  .nav-cta{
+    background:var(--amber-400); color:var(--navy-900); font-weight:600;
+    padding:9px 18px; border-radius:999px; font-size:.85rem; text-decoration:none;
+    white-space:nowrap;
+  }
+  .nav-toggle{
+    display:none; background:transparent; border:1px solid var(--line);
+    border-radius:8px; width:38px; height:38px; cursor:pointer;
+    align-items:center; justify-content:center; flex:none;
+  }
+  .nav-toggle svg{stroke:#fff;}
+  .nav-mobile-panel{display:none;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background:radial-gradient(circle at 15% 0%, #143a86 0%, var(--navy-800) 45%, var(--navy-900) 100%);
+    color:#fff;
+    padding:74px 0 40px;
+    overflow:hidden;
+    position:relative;
+  }
+  .hero-grid{
+    display:grid; grid-template-columns:1.05fr .95fr; gap:40px; align-items:center;
+  }
+  .hero h1{color:#fff; font-size:clamp(2.1rem, 4vw, 3.1rem); line-height:1.08; margin-bottom:18px;}
+  .hero h1 em{font-style:normal; color:var(--cyan-400);}
+  .hero p.lead{color:#c3cee6; font-size:1.06rem; max-width:46ch; margin-bottom:28px;}
+  .hero-actions{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:34px;}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:13px 22px; border-radius:10px; text-decoration:none;
+    font-weight:600; font-size:.92rem; border:1px solid transparent;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:var(--amber-400); color:var(--navy-900); box-shadow:0 10px 24px -8px rgba(255,177,48,.55);}
+  .btn-ghost{background:transparent; color:#fff; border-color:rgba(255,255,255,.35);}
+  .hero-stats{display:flex; gap:30px; flex-wrap:wrap;}
+  .hero-stats div{border-left:2px solid var(--cyan-400); padding-left:12px;}
+  .hero-stats strong{display:block; font-family:'Space Grotesk'; font-size:1.5rem; color:#fff;}
+  .hero-stats span{font-size:.78rem; color:#9fb0d4;}
+
+  /* signature sync diagram */
+  .sync-vis{position:relative;}
+  .sync-vis svg{width:100%; height:auto; display:block;}
+  .node-label{font-family:'IBM Plex Mono'; font-size:11px; fill:#c3cee6;}
+  .node-label.strong{fill:#fff; font-weight:600;}
+
+  @media (prefers-reduced-motion:no-preference){
+    .path-draw{stroke-dasharray:400; stroke-dashoffset:400; animation:draw 1.8s ease forwards;}
+    .path-draw.d2{animation-delay:.25s;}
+    .pulse{animation:pulse 2.6s ease-in-out infinite;}
+  }
+  @keyframes draw{to{stroke-dashoffset:0;}}
+  @keyframes pulse{0%,100%{opacity:.55;} 50%{opacity:1;}}
+
+  /* ---------- SECTION SHELLS ---------- */
+  section{padding:78px 0;}
+  .section-head{max-width:640px; margin-bottom:44px;}
+  .section-head p{color:var(--slate-600); font-size:1.02rem;}
+  .band-dark{background:var(--navy-900); color:#fff;}
+  .band-dark h2{color:#fff;}
+  .band-dark .section-head p{color:#aebbdb;}
+
+  /* ---------- WHAT WE DO ---------- */
+  .services-row{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:18px;
+  }
+  .service-card{
+    background:#fff; border:1px solid #dfe7f4; border-radius:var(--radius);
+    padding:22px 18px;
+  }
+  .service-card .ic{
+    width:42px;height:42px;border-radius:10px;
+    background:linear-gradient(135deg, var(--blue-600), var(--cyan-400));
+    display:flex; align-items:center; justify-content:center; margin-bottom:14px;
+  }
+  .service-card .ic svg{width:22px;height:22px;stroke:#fff;}
+  .service-card h4{font-size:1rem; margin-bottom:6px;}
+  .service-card p{font-size:.86rem; color:var(--slate-600); margin:0;}
+  .offer-strip{
+    margin-top:22px; display:flex; align-items:center; justify-content:space-between;
+    background:linear-gradient(90deg, var(--navy-800), var(--navy-700));
+    color:#fff; border-radius:var(--radius); padding:20px 26px; flex-wrap:wrap; gap:14px;
+  }
+  .offer-strip .price{font-family:'Space Grotesk'; font-size:1.6rem; font-weight:700; color:var(--cyan-400);}
+  .offer-strip small{color:#aebbdb; font-size:.75rem;}
+
+  /* ---------- WHO CAN APPLY (IT / NON-IT) ---------- */
+  .tracks{display:grid; grid-template-columns:1fr 1fr; gap:24px;}
+  .track-card{
+    border-radius:var(--radius); padding:30px 28px;
+    border:1px solid #dfe7f4; background:#fff;
+    position:relative; overflow:hidden;
+  }
+  .track-card.it{border-top:4px solid var(--cyan-400);}
+  .track-card.non-it{border-top:4px solid var(--amber-400);}
+  .track-card .tag{
+    font-family:'IBM Plex Mono'; font-size:.7rem; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--blue-600); margin-bottom:10px; display:block;
+  }
+  .track-card ul{margin:14px 0 0; padding-left:0; list-style:none;}
+  .track-card li{
+    padding:9px 0; border-bottom:1px dashed #e2e9f5; font-size:.92rem; color:var(--slate-800);
+    display:flex; gap:10px; align-items:flex-start;
+  }
+  .track-card li:last-child{border-bottom:none;}
+  .track-card li::before{content:"→"; color:var(--blue-600); font-weight:700;}
+
+  /* ---------- ROLES BY DEPARTMENT ---------- */
+  .dept-list{display:flex; flex-direction:column; gap:14px;}
+  details.dept{
+    background:#fff; border:1px solid #dfe7f4; border-radius:var(--radius); overflow:hidden;
+  }
+  details.dept > summary{
+    list-style:none; cursor:pointer; padding:20px 24px;
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+  }
+  details.dept > summary::-webkit-details-marker{display:none;}
+  .dept-name{display:flex; align-items:baseline; gap:12px;}
+  .dept-name .idx{font-family:'IBM Plex Mono'; color:var(--blue-600); font-size:.8rem;}
+  .dept-name h3{font-size:1.08rem; margin:0;}
+  .dept-count{font-family:'IBM Plex Mono'; font-size:.72rem; color:var(--slate-600); background:var(--paper-2); padding:4px 10px; border-radius:999px; white-space:nowrap;}
+  .chevron{transition:transform .2s ease; flex:none;}
+  details[open] .chevron{transform:rotate(180deg);}
+  .dept-body{padding:0 24px 22px; border-top:1px solid #eef2f9;}
+  .role{padding:18px 0; border-bottom:1px solid #f0f3fa;}
+  .role:last-child{border-bottom:none;}
+  .role h4{font-size:.98rem; margin-bottom:5px;}
+  .role p{margin:0; font-size:.89rem; color:var(--slate-600);}
+
+  /* ---------- WHY INTERN WITH US ---------- */
+  .why-grid{display:grid; grid-template-columns:repeat(5,1fr); gap:16px;}
+  .why-card{
+    background:rgba(255,255,255,.05); border:1px solid var(--line); border-radius:var(--radius);
+    padding:20px 16px;
+  }
+  .why-card h4{color:#fff; font-size:.95rem; margin-bottom:6px;}
+  .why-card p{color:#aebbdb; font-size:.82rem; margin:0;}
+
+  /* ---------- APPLY / CONTACT ---------- */
+  .apply{
+    background:linear-gradient(120deg, var(--blue-600), var(--navy-700) 60%, var(--navy-900));
+    color:#fff; border-radius:20px; padding:52px 44px;
+    display:grid; grid-template-columns:1.2fr .8fr; gap:36px; align-items:center;
+  }
+  .apply h2{color:#fff;}
+  .apply p{color:#dbe4f6;}
+  .contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+  .contact-item{
+    background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.16);
+    border-radius:12px; padding:14px 16px; text-decoration:none; color:#fff;
+  }
+  .contact-item span{display:block; font-family:'IBM Plex Mono'; font-size:.68rem; letter-spacing:.08em; text-transform:uppercase; color:#a9c4ec; margin-bottom:4px;}
+  .contact-item strong{font-size:.9rem;}
+
+  /* ---------- ON-SITE CONTACT FORM ---------- */
+  .form-shell{
+    background:#fff; border:1px solid #dfe7f4; border-radius:20px;
+    padding:44px; display:grid; grid-template-columns:.85fr 1.15fr; gap:44px;
+  }
+  .form-shell .form-intro p{color:var(--slate-600); margin-bottom:22px;}
+  .form-intro-points{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:14px;}
+  .form-intro-points li{display:flex; gap:10px; font-size:.88rem; color:var(--slate-800);}
+  .form-intro-points li::before{content:"✓"; color:var(--blue-600); font-weight:700; flex:none;}
+  .field-row{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  .field{display:flex; flex-direction:column; gap:6px; margin-bottom:16px;}
+  .field label{font-size:.82rem; font-weight:600; color:var(--navy-900);}
+  .field .req{color:var(--amber-400);}
+  .field input, .field select, .field textarea{
+    font-family:'IBM Plex Sans', sans-serif; font-size:.92rem; color:var(--slate-800);
+    border:1px solid #d5deee; border-radius:10px; padding:11px 13px;
+    background:var(--paper); transition:border-color .15s, box-shadow .15s;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus{
+    outline:none; border-color:var(--blue-600); box-shadow:0 0 0 3px rgba(30,99,201,.14);
+  }
+  .field textarea{resize:vertical; min-height:96px; font-family:'IBM Plex Sans', sans-serif;}
+  .radio-group{display:flex; gap:10px; flex-wrap:wrap;}
+  .radio-pill{
+    position:relative;
+  }
+  .radio-pill input{position:absolute; opacity:0; inset:0; cursor:pointer;}
+  .radio-pill span{
+    display:inline-flex; padding:9px 16px; border-radius:999px; border:1px solid #d5deee;
+    font-size:.84rem; color:var(--slate-600); cursor:pointer; transition:all .15s;
+  }
+  .radio-pill input:checked + span{
+    background:var(--blue-600); border-color:var(--blue-600); color:#fff; font-weight:600;
+  }
+  .form-actions{display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-top:6px;}
+  .btn-form{
+    border:none; cursor:pointer; font-family:inherit;
+  }
+  .form-note{font-size:.78rem; color:var(--slate-600); margin-top:14px;}
+  .form-status{
+    display:none; margin-top:16px; padding:13px 16px; border-radius:10px;
+    background:#e9f6ee; border:1px solid #bfe6cc; color:#1c6b3a; font-size:.88rem;
+  }
+  .form-status.show{display:block;}
+  @media (max-width:900px){
+    .form-shell{grid-template-columns:1fr; padding:28px 22px;}
+    .field-row{grid-template-columns:1fr;}
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--navy-900); color:#93a3c7; padding:34px 0; font-size:.82rem;}
+  .foot-row{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;}
+  .foot-social{display:flex; gap:14px;}
+  .foot-social a{color:#c3cee6; text-decoration:none;}
+
+  @media (max-width:900px){
+    .hero-grid{grid-template-columns:1fr;}
+    .services-row{grid-template-columns:repeat(2,1fr);}
+    .tracks{grid-template-columns:1fr;}
+    .why-grid{grid-template-columns:repeat(2,1fr);}
+    .apply{grid-template-columns:1fr; padding:36px 24px;}
+    .links{display:none;}
+    .nav > a.nav-cta{display:none;}
+    .nav-toggle{display:flex;}
+    .nav-mobile-panel{
+      display:flex; flex-direction:column; gap:2px;
+      max-height:0; overflow:hidden; transition:max-height .25s ease;
+      background:var(--navy-800); border-top:1px solid var(--line);
+    }
+    .nav-mobile-panel.open{max-height:260px;}
+    .nav-mobile-panel a{
+      color:#cfd9ee; text-decoration:none; font-size:.92rem; font-weight:500;
+      padding:14px 28px; border-bottom:1px solid var(--line);
+    }
+    .nav-mobile-panel a.nav-cta{
+      color:var(--navy-900); margin:14px 28px; padding:12px 18px; border-radius:10px; text-align:center;
+    }
+  }
+  @media (max-width:560px){
+    .services-row{grid-template-columns:1fr;}
+    .why-grid{grid-template-columns:1fr;}
+    .hero-stats{gap:20px;}
+    .contact-grid{grid-template-columns:1fr;}
+  }
+</style>
 </head>
 <body>
 
-<div class="bg-grid"></div>
-<div class="bg-orb orb1"></div>
-<div class="bg-orb orb2"></div>
-<div class="bg-orb orb3"></div>
+<header class="site">
+  <div class="nav">
+    <a href="#top" class="brand">
+<a href="index.html">
+  <svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 157 128"
+  width="50"
+  height="30"
+  aria-label="Company Logo"
+>
+  <path
+    d="M 31 19 L 31 84 L 33 89 L 38 95 L 42 97 L 54 97 L 57 96 L 63 90 L 65 84 L 65 75 L 61 73 L 55 67 L 55 83 L 51 88 L 45 88 L 42 85 L 41 82 L 41 19 Z
+       M 9 19 L 8 20 L 8 87 L 11 97 L 14 103 L 22 112 L 38 120 L 43 120 L 44 121 L 58 120 L 64 118 L 73 113 L 81 105 L 86 96 L 88 90 L 88 84 L 89 83 L 88 81 L 79 81 L 79 86 L 77 93 L 71 102 L 61 109 L 55 111 L 42 111 L 38 110 L 36 108 L 31 106 L 23 98 L 19 91 L 18 87 L 18 20 L 17 19 Z"
+    fill="#15426F"
+  />
 
-<!-- ═══ HOME ═══ -->
-<div class="screen active" id="home">
-  <div class="kb-preview">
-` 1 2 3 4 5 6 7 8 9 0 - =
-  Q W E R T Y U I O P [ ] \
-   A S D F G H J K L ; '
-    Z X C V B N M , . /
-         [    SPACE    ]</div>
-
-  <div class="logo">10 FINGER TYPING MASTER</div>
-  <div class="logo-sub">Learn · Practice · Master</div>
-
-  <div class="home-cards">
-    <div class="stat-pill">
-      <span class="val" id="hs-wpm">0</span>
-      <span class="lbl">Best WPM</span>
-    </div>
-    <div class="stat-pill">
-      <span class="val" id="hs-acc">0%</span>
-      <span class="lbl">Best Accuracy</span>
-    </div>
-    <div class="stat-pill">
-      <span class="val" id="hs-streak">0🔥</span>
-      <span class="lbl">Day Streak</span>
-    </div>
-    <div class="stat-pill">
-      <span class="val" id="hs-words">0</span>
-      <span class="lbl">Words Typed</span>
-    </div>
+  <path
+    d="M 66 24 L 59 32 L 55 41 L 56 43 L 56 51 L 55 52 L 57 58 L 59 59 L 58 60 L 60 60 L 59 62 L 63 65 L 62 66 L 66 68 L 68 69 L 67 70 L 70 72 L 72 73 L 79 75 L 132 75 L 137 77 L 143 83 L 146 89 L 146 97 L 144 103 L 134 110 L 131 111 L 87 111 L 76 120 L 133 121 L 138 118 L 143 117 L 146 114 L 151 110 L 154 105 L 154 81 L 151 76 L 145 70 L 134 65 L 81 65 L 79 64 L 71 61 L 69 59 L 69 57 L 66 55 L 65 52 L 66 51 L 66 44 L 65 42 L 66 39 L 68 38 L 73 31 L 79 29 L 106 28 L 110 23 L 105 19 L 77 19 Z
+       M 152 7 L 151 6 L 120 14 L 120 16 L 127 23 L 127 25 L 113 40 L 105 43 L 91 43 L 83 43 L 79 46 L 80 49 L 79 50 L 84 52 L 109 52 L 114 51 L 118 47 L 120 47 L 122 44 L 136 31 L 140 33 L 145 38 L 148 38 L 150 20 L 152 13 Z"
+    fill="#2A83BB"
+  />
+</svg>
+</a>
+      <span class="brand-text">Urban IT Sync<span>INTERNSHIP PROGRAM</span></span>
+    </a>
+    <a class="nav-cta" href="https://wa.me/919494717912?text=Hi%2C%20I%27m%20interested%20in%20the%20Urban%20IT%20Sync%20internship%20program" target="_blank" rel="noopener">Apply on WhatsApp</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navMobilePanel">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
   </div>
-
-  <div class="mode-select" style="margin-bottom:20px">
-    <button class="mode-btn active" data-mode="intermediate" onclick="selectMode(this,'intermediate')">🟢 Intermediate</button>
-    <button class="mode-btn" data-mode="beginner" onclick="selectMode(this,'beginner')">🔵 Beginner</button>
-    <button class="mode-btn" data-mode="advanced" onclick="selectMode(this,'advanced')">🔴 Advanced</button>
+  <div class="nav-mobile-panel" id="navMobilePanel">
+    <a href="#who">Who Can Apply</a>
+    <a href="#roles">Roles</a>
+    <a href="#why">Why Us</a>
+    <a href="#contact">Contact</a>
+    <a class="nav-cta" href="https://wa.me/919494717912?text=Hi%2C%20I%27m%20interested%20in%20the%20Urban%20IT%20Sync%20internship%20program" target="_blank" rel="noopener">Apply on WhatsApp</a>
   </div>
+</header>
 
-  <div class="btn-row">
-    <button class="btn btn-primary" onclick="startPractice()">▶ Start Practice</button>
-    <button class="btn btn-secondary" onclick="startGame()">🎮 Game Mode</button>
-    <button class="btn btn-ghost" onclick="showStats()">📊 Statistics</button>
-  </div>
-</div>
+<main id="top">
 
-<!-- ═══ PRACTICE ═══ -->
-<div class="screen" id="practice">
-  <div class="top-bar">
-    <span class="logo-sm" style="cursor:pointer" onclick="showHome()">⌨ 10FTM</span>
-    <div class="metrics">
-      <div class="metric"><div class="mv" id="wpm-display">0</div><div class="ml">WPM</div></div>
-      <div class="metric"><div class="mv" id="acc-display">100%</div><div class="ml">Accuracy</div></div>
-      <div class="metric"><div class="mv" id="cor-display">0</div><div class="ml">Correct</div></div>
-      <div class="metric"><div class="mv" id="err-display">0</div><div class="ml">Errors</div></div>
-      <div class="metric"><div class="mv" id="time-display">0s</div><div class="ml">Time</div></div>
-    </div>
-  </div>
-
-  <!-- Hands -->
-  <div class="hands-container">
-    <div class="hand-group">
-      <div class="hand left" id="left-hand">
-        <div class="finger f-lp" id="f-lp">
-          <div class="finger-visual pinky-v"></div>
-          <div class="finger-label">Pinky</div>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow" style="color:var(--cyan-400);">Gachibowli, Hyderabad · Open to Freshers</div>
+        <h1>Sync your career<br>to reality — <em>no matter<br>where you started.</em></h1>
+        <p class="lead">Urban IT Sync runs a structured internship program open to students from every stream — computer science, business, commerce, design, or anything in between. Eleven roles, six departments, one real team to learn from.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#roles">See internship roles</a>
+          <a class="btn btn-ghost" href="#who">Which track fits me?</a>
         </div>
-        <div class="finger f-lr" id="f-lr">
-          <div class="finger-visual ring-v"></div>
-          <div class="finger-label">Ring</div>
-        </div>
-        <div class="finger f-lm" id="f-lm">
-          <div class="finger-visual mid"></div>
-          <div class="finger-label">Mid</div>
-        </div>
-        <div class="finger f-li" id="f-li">
-          <div class="finger-visual tip"></div>
-          <div class="finger-label">Index</div>
-        </div>
-        <div class="finger f-thumb" id="f-lthumb">
-          <div class="finger-visual thumb-v"></div>
-          <div class="finger-label">Thumb</div>
+        <div class="hero-stats">
+          <div><strong>11</strong><span>open positions</span></div>
+          <div><strong>6</strong><span>departments</span></div>
+          <div><strong>IT + Non-IT</strong><span>backgrounds welcome</span></div>
         </div>
       </div>
-      <div class="hands-label">Left Hand</div>
-    </div>
-    <div class="hand-group">
-      <div class="hand right" id="right-hand">
-        <div class="finger f-thumb" id="f-rthumb">
-          <div class="finger-visual thumb-v"></div>
-          <div class="finger-label">Thumb</div>
-        </div>
-        <div class="finger f-ri" id="f-ri">
-          <div class="finger-visual tip"></div>
-          <div class="finger-label">Index</div>
-        </div>
-        <div class="finger f-rm" id="f-rm">
-          <div class="finger-visual mid"></div>
-          <div class="finger-label">Mid</div>
-        </div>
-        <div class="finger f-rr" id="f-rr">
-          <div class="finger-visual ring-v"></div>
-          <div class="finger-label">Ring</div>
-        </div>
-        <div class="finger f-rp" id="f-rp">
-          <div class="finger-visual pinky-v"></div>
-          <div class="finger-label">Pinky</div>
-        </div>
-      </div>
-      <div class="hands-label">Right Hand</div>
-    </div>
-  </div>
 
-  <!-- Text -->
-  <div class="text-box" id="text-box" onclick="focusInput()">
-    <input type="text" id="typing-input" autocomplete="off" autocorrect="off" spellcheck="false">
-    <div id="text-display"></div>
-  </div>
+      <div class="sync-vis" aria-hidden="true">
+        <svg viewBox="0 0 520 340" xmlns="http://www.w3.org/2000/svg">
+          <!-- left IT nodes: label sits ABOVE the node so it never crosses the connecting line -->
+          <text x="10" y="42" class="node-label">IT / CS background</text>
+          <circle cx="40" cy="60" r="5" fill="#3fc0f0"/>
+          <text x="10" y="132" class="node-label">Data &amp; analysis</text>
+          <circle cx="40" cy="150" r="5" fill="#3fc0f0"/>
+          <text x="10" y="222" class="node-label">Digital tools</text>
+          <circle cx="40" cy="240" r="5" fill="#3fc0f0"/>
 
-  <!-- Keyboard -->
-  <div class="keyboard" id="keyboard"></div>
+          <path class="path-draw" d="M40 60 C 150 60, 190 120, 224 145" stroke="#3fc0f0" stroke-width="2" fill="none" opacity="0.85"/>
+          <path class="path-draw" d="M40 150 C 120 150, 180 150, 224 150" stroke="#3fc0f0" stroke-width="2" fill="none" opacity="0.85"/>
+          <path class="path-draw" d="M40 240 C 150 240, 190 180, 224 155" stroke="#3fc0f0" stroke-width="2" fill="none" opacity="0.85"/>
 
-  <!-- Finger guide -->
-  <div class="finger-guide" id="finger-guide"></div>
+          <!-- right Non-IT nodes -->
+          <text x="510" y="42" text-anchor="end" class="node-label">Business / commerce</text>
+          <circle cx="480" cy="60" r="5" fill="#ffb130"/>
+          <text x="510" y="132" text-anchor="end" class="node-label">Marketing &amp; sales</text>
+          <circle cx="480" cy="150" r="5" fill="#ffb130"/>
+          <text x="510" y="222" text-anchor="end" class="node-label">Any other background</text>
+          <circle cx="480" cy="240" r="5" fill="#ffb130"/>
 
-  <div class="practice-controls">
-    <button class="btn btn-primary" onclick="newText()">⟳ New Text</button>
-    <button class="btn btn-secondary" onclick="showHome()">⌂ Home</button>
-    <button class="btn btn-ghost" onclick="showStats()">📊 Stats</button>
-  </div>
-</div>
+          <path class="path-draw d2" d="M480 60 C 370 60, 330 120, 296 145" stroke="#ffb130" stroke-width="2" fill="none" opacity="0.85"/>
+          <path class="path-draw d2" d="M480 150 C 400 150, 340 150, 296 150" stroke="#ffb130" stroke-width="2" fill="none" opacity="0.85"/>
+          <path class="path-draw d2" d="M480 240 C 370 240, 330 180, 296 155" stroke="#ffb130" stroke-width="2" fill="none" opacity="0.85"/>
 
-<!-- ═══ GAME ═══ -->
-<div class="screen" id="game">
-  <div class="game-top">
-    <span class="logo-sm" style="cursor:pointer" onclick="showHome()">⌨ 10FTM — Game Mode</span>
-    <div style="display:flex;gap:20px;align-items:center">
-      <div>Score: <span class="game-score" id="game-score-display">0</span></div>
-      <div>Time: <span class="game-timer" id="game-timer-display">60</span>s</div>
-    </div>
-  </div>
-  <div class="game-area" id="game-area">
-    <div class="game-over hidden" id="game-over">
-      <div class="game-over-title">GAME OVER</div>
-      <div class="game-over-score" id="go-score">Score: 0</div>
-      <button class="btn btn-primary" onclick="restartGame()">▶ Play Again</button>
-      <button class="btn btn-ghost" onclick="showHome()">⌂ Home</button>
-    </div>
-  </div>
-  <div class="game-input-wrap">
-    <input type="text" id="game-input" placeholder="Type the falling words..." autocomplete="off" spellcheck="false">
-  </div>
-  <button class="btn btn-secondary" onclick="showHome()">⌂ Home</button>
-</div>
+          <!-- hub -->
+          <circle class="pulse" cx="260" cy="150" r="36" fill="url(#hubgrad)"/>
+          <defs>
+            <linearGradient id="hubgrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#1e63c9"/>
+              <stop offset="100%" stop-color="#3fc0f0"/>
+            </linearGradient>
+          </defs>
+          <text x="260" y="146" text-anchor="middle" class="node-label strong" font-size="12">USYNC</text>
+          <text x="260" y="162" text-anchor="middle" class="node-label" font-size="9">Internship</text>
 
-<!-- ═══ STATS ═══ -->
-<div class="screen" id="stats">
-  <div class="stats-header">
-    <div class="stats-title">📊 Statistics</div>
-    <button class="btn btn-ghost" onclick="showHome()">⌂ Home</button>
-  </div>
-
-  <div class="stats-grid">
-    <div class="stat-card"><div class="sval" id="st-bestwpm">0</div><div class="slbl">Best WPM</div></div>
-    <div class="stat-card"><div class="sval" id="st-avgwpm">0</div><div class="slbl">Avg WPM</div></div>
-    <div class="stat-card"><div class="sval" id="st-bestacc">0%</div><div class="slbl">Best Accuracy</div></div>
-    <div class="stat-card"><div class="sval" id="st-avgacc">0%</div><div class="slbl">Avg Accuracy</div></div>
-    <div class="stat-card"><div class="sval" id="st-sessions">0</div><div class="slbl">Sessions</div></div>
-    <div class="stat-card"><div class="sval" id="st-words">0</div><div class="slbl">Total Words</div></div>
-    <div class="stat-card"><div class="sval" id="st-chars">0</div><div class="slbl">Chars Typed</div></div>
-    <div class="stat-card"><div class="sval" id="st-time">0m</div><div class="slbl">Time Practiced</div></div>
-  </div>
-
-  <div class="chart-card">
-    <div class="chart-title">WPM History</div>
-    <div class="wpm-bars" id="wpm-chart"></div>
-  </div>
-
-  <div class="progress-card">
-    <div class="prog-title">📈 Skill Progress</div>
-    <div class="skill-bar-wrap">
-      <div class="skill-bar-label"><span>Speed</span><span id="prog-speed">0%</span></div>
-      <div class="skill-bar-track"><div class="skill-bar-fill" id="bar-speed" style="width:0%"></div></div>
-    </div>
-    <div class="skill-bar-wrap">
-      <div class="skill-bar-label"><span>Accuracy</span><span id="prog-acc">0%</span></div>
-      <div class="skill-bar-track"><div class="skill-bar-fill" id="bar-acc" style="width:0%"></div></div>
-    </div>
-    <div class="skill-bar-wrap">
-      <div class="skill-bar-label"><span>Consistency</span><span id="prog-con">0%</span></div>
-      <div class="skill-bar-track"><div class="skill-bar-fill" id="bar-con" style="width:0%"></div></div>
-    </div>
-    <div style="margin-top:20px">
-      <div style="font-size:.8rem;color:var(--text-dim);margin-bottom:8px;text-transform:uppercase;letter-spacing:2px">Daily Streak</div>
-      <div class="streak-display">
-        <span class="streak-fire">🔥</span>
-        <span class="streak-num" id="streak-num">0</span>
-        <span style="font-size:.9rem;color:var(--text-dim)">days</span>
+          <text x="260" y="305" text-anchor="middle" class="node-label" font-size="11" fill="#c3cee6">Every path converges into one team.</text>
+        </svg>
       </div>
     </div>
-  </div>
+  </section>
 
-  <div class="achievements-card">
-    <div class="ach-title">🏆 Achievements</div>
-    <div class="ach-grid" id="ach-grid"></div>
-  </div>
-</div>
+  <!-- WHAT WE DO -->
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">What Urban IT Sync builds</div>
+        <h2>A working IT services company, not a training shop</h2>
+        <p>Interns support a real client-facing team — websites, mobile apps, custom applications and web development for paying clients. That's the work you'll be close to, whichever role you join.</p>
+      </div>
+      <div class="services-row">
+        <div class="service-card">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+          <h4>Websites</h4>
+          <p>Professional, responsive sites for small and growing businesses.</p>
+        </div>
+        <div class="service-card">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg></div>
+          <h4>Mobile Apps</h4>
+          <p>Custom app development for Android and iOS.</p>
+        </div>
+        <div class="service-card">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M4 7l4-4h8l4 4v10l-4 4H8l-4-4z"/><path d="M9 12h6"/></svg></div>
+          <h4>Applications</h4>
+          <p>Custom software applications built around client workflows.</p>
+        </div>
+        <div class="service-card">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M8 6l-6 6 6 6M16 6l6 6-6 6"/></svg></div>
+          <h4>Web Development</h4>
+          <p>End-to-end build and delivery for web-based products.</p>
+        </div>
+      </div>
+  </section>
 
-<!-- Toast -->
-<div class="toast" id="toast"></div>
+  <!-- WHO CAN APPLY -->
+  <section id="who" style="background:var(--paper-2);">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Open to all streams</div>
+        <h2>Built for IT and non-IT students alike</h2>
+        <p>None of the eleven internship roles require you to already know how to code. Here's how your background is likely to line up.</p>
+      </div>
+      <div class="tracks">
+        <div class="track-card it">
+          <span class="tag">If you're from an IT / CS background</span>
+          <h3>Lean into data, tools and digital execution</h3>
+          <ul>
+            <li>Business Analyst — bridge business needs and technical teams</li>
+            <li>Market Research Analyst — gather and analyze market data</li>
+            <li>Digital Marketing Specialist — SEO/SEM, campaigns, ad platforms</li>
+            <li>Content Developer — write and edit content with SEO in mind</li>
+          </ul>
+        </div>
+        <div class="track-card non-it">
+          <span class="tag">If you're from a non-IT background</span>
+          <h3>Lean into people, process and communication</h3>
+          <ul>
+            <li>Human Resources — recruitment, employee relations, policy</li>
+            <li>Business Development Associate / Executive — outreach, pitches</li>
+            <li>Marketing Manager — campaigns and brand messaging</li>
+            <li>Sales Representative &amp; Customer Relationship Manager</li>
+            <li>Administrative Assistant — office and team support</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROLES BY DEPARTMENT -->
+  <section id="roles">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Internship roles</div>
+        <h2>11 positions across 6 departments</h2>
+        <p>Open any department to read the primary objective of each role.</p>
+      </div>
+
+      <div class="dept-list">
+
+        <details class="dept" open>
+          <summary>
+            <div class="dept-name"><span class="idx">01</span><h3>Business &amp; Management</h3></div>
+            <div style="display:flex; align-items:center; gap:12px;">
+              <span class="dept-count">1 role</span>
+              <svg class="chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4d5b78" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </div>
+          </summary>
+          <div class="dept-body">
+            <div class="role">
+              <h4>Human Resources (HR)</h4>
+              <p>Oversee recruitment, hiring and interviewing; manage employee relations, payroll and benefits; help enforce company policy.</p>
+            </div>
+          </div>
+        </details>
+
+        <details class="dept">
+          <summary>
+            <div class="dept-name"><span class="idx">02</span><h3>Business Development / Marketing</h3></div>
+            <div style="display:flex; align-items:center; gap:12px;">
+              <span class="dept-count">3 roles</span>
+              <svg class="chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4d5b78" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </div>
+          </summary>
+          <div class="dept-body">
+            <div class="role">
+              <h4>Business Development Associate (BDA)</h4>
+              <p>Support the org in growing business opportunities by promoting company services and the internship program — marketing, lead generation, client communication and coordination with technical teams.</p>
+            </div>
+            <div class="role">
+              <h4>Marketing Manager</h4>
+              <p>Develop and run strategic marketing plans to attract and retain customers; manage campaigns and brand messaging.</p>
+            </div>
+            <div class="role">
+              <h4>Business Development Executive</h4>
+              <p>Identify and investigate new business opportunities and markets; prepare and deliver sales pitches and presentations to potential clients.</p>
+            </div>
+          </div>
+        </details>
+
+        <details class="dept">
+          <summary>
+            <div class="dept-name"><span class="idx">03</span><h3>Finance &amp; Sales</h3></div>
+            <div style="display:flex; align-items:center; gap:12px;">
+              <span class="dept-count">2 roles</span>
+              <svg class="chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4d5b78" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </div>
+          </summary>
+          <div class="dept-body">
+            <div class="role">
+              <h4>Sales Representative</h4>
+              <p>Sell products and services to customers, understand their needs and answer questions to close sales.</p>
+            </div>
+            <div class="role">
+              <h4>Customer Relationship Manager</h4>
+              <p>Maintain and nurture client relationships post-sale; analyze customer trends to find revenue-generating opportunities.</p>
+            </div>
+          </div>
+        </details>
+
+        <details class="dept">
+          <summary>
+            <div class="dept-name"><span class="idx">04</span><h3>Analytics &amp; Research</h3></div>
+            <div style="display:flex; align-items:center; gap:12px;">
+              <span class="dept-count">2 roles</span>
+              <svg class="chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4d5b78" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </div>
+          </summary>
+          <div class="dept-body">
+            <div class="role">
+              <h4>Market Research Analyst</h4>
+              <p>Gather, assemble and analyze data on market conditions, products and sales opportunities to identify new markets.</p>
+            </div>
+            <div class="role">
+              <h4>Business Analyst</h4>
+              <p>Evaluate business processes, identify needs and shape data-driven solutions; act as a bridge between business stakeholders and technical teams.</p>
+            </div>
+          </div>
+        </details>
+
+        <details class="dept">
+          <summary>
+            <div class="dept-name"><span class="idx">05</span><h3>Creative &amp; Content</h3></div>
+            <div style="display:flex; align-items:center; gap:12px;">
+              <span class="dept-count">2 roles</span>
+              <svg class="chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4d5b78" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </div>
+          </summary>
+          <div class="dept-body">
+            <div class="role">
+              <h4>Digital Marketing Specialist</h4>
+              <p>Run marketing strategies across SEO/SEM, email campaigns and social media advertising to grow brand and product sales.</p>
+            </div>
+            <div class="role">
+              <h4>Content Developer</h4>
+              <p>Research, write and edit content for websites, blogs and marketing material, often incorporating SEO principles.</p>
+            </div>
+          </div>
+        </details>
+
+        <details class="dept">
+          <summary>
+            <div class="dept-name"><span class="idx">06</span><h3>Administrative &amp; Support</h3></div>
+            <div style="display:flex; align-items:center; gap:12px;">
+              <span class="dept-count">1 role</span>
+              <svg class="chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4d5b78" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </div>
+          </summary>
+          <div class="dept-body">
+            <div class="role">
+              <h4>Administrative Assistant</h4>
+              <p>Handle clerical and secretarial work, manage office communications, organize files and support teams and managers.</p>
+            </div>
+          </div>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY -->
+  <section id="why" class="band-dark">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow" style="color:var(--cyan-400);">Why intern here</div>
+        <h2>What you actually get out of it</h2>
+      </div>
+      <div class="why-grid">
+        <div class="why-card"><h4>Experienced team</h4><p>Work alongside people who've shipped client projects, not just lesson plans.</p></div>
+        <div class="why-card"><h4>Cutting-edge tech</h4><p>Exposure to current tools and stacks used on live client work.</p></div>
+        <div class="why-card"><h4>Timely delivery</h4><p>Learn how real deadlines and client expectations actually work.</p></div>
+        <div class="why-card"><h4>Post-launch support</h4><p>See the full lifecycle — not just the build, but what happens after.</p></div>
+        <div class="why-card"><h4>Affordable solutions</h4><p>Understand how to scope work realistically for small business clients.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPLY -->
+  <section id="apply">
+    <div class="wrap">
+      <div class="apply">
+        <div>
+          <div class="eyebrow" style="color:#bcd6fb;">Ready to sync in?</div>
+          <h2>Apply in one message</h2>
+          <p>Tell us your background and which role interests you — WhatsApp is the fastest way to hear back.</p>
+          <div class="hero-actions" style="margin-top:20px;">
+            <a class="btn btn-primary" href="https://wa.me/919494717912?text=Hi%2C%20I%27d%20like%20to%20apply%20for%20an%20internship%20at%20Urban%20IT%20Sync." target="_blank" rel="noopener">Message on WhatsApp</a>
+            <a class="btn btn-ghost" href="mailto:urbanitsync@gmail.com">Email instead</a>
+          </div>
+        </div>
+        <div class="contact-grid">
+          <a class="contact-item" href="tel:+919494717912"><span>Call</span><strong>+91 9494717912</strong></a>
+          <a class="contact-item" href="https://wa.me/919494717912" target="_blank" rel="noopener"><span>WhatsApp</span><strong>+91 9494717912</strong></a>
+          <a class="contact-item" href="mailto:urbanitsync@gmail.com"><span>Email</span><strong>urbanitsync@gmail.com</strong></a>
+          <a class="contact-item" href="https://urbanitsync.ccbp.tech" target="_blank" rel="noopener"><span>Website</span><strong>urbanitsync.ccbp.tech</strong></a>
+          <div class="contact-item" style="grid-column:1/-1;"><span>Office</span><strong>Gachibowli, Hyderabad</strong></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ON-SITE CONTACT FORM -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Prefer to write it out?</div>
+        <h2>Send us a message directly</h2>
+        <p>Fill this in and we'll open it in your email or WhatsApp app, ready to send — nothing is stored on this site.</p>
+      </div>
+
+      <div class="form-shell">
+        <div class="form-intro">
+          <h3>What happens next</h3>
+          <ul class="form-intro-points">
+            <li>We read every message ourselves — usually within one business day.</li>
+            <li>Tell us your background so we can point you to the right role.</li>
+            <li>No account, no sign-up. Just tell us how to reach you.</li>
+          </ul>
+        </div>
+
+        <form action="https://api.web3forms.com/submit" method="POST">
+          <input type="hidden" name="access_key" value="c5e6f0d0-83bd-463b-af9b-97838f917b12">
+          <div class="field-row">
+            <div class="field">
+              <label for="cf-name">Full name <span class="req">*</span></label>
+              <input type="text" id="cf-name" name="name" required placeholder="Your name">
+            </div>
+            <div class="field">
+              <label for="cf-email">Email <span class="req">*</span></label>
+              <input type="email" id="cf-email" name="email" required placeholder="you@email.com">
+            </div>
+          </div>
+          <div class="field">
+            <label>Your background</label>
+            <div class="radio-group">
+              <label class="radio-pill"><input type="radio" name="background" value="IT / CS" checked><span>IT / CS</span></label>
+              <label class="radio-pill"><input type="radio" name="background" value="Non-IT"><span>Non-IT</span></label>
+              <label class="radio-pill"><input type="radio" name="background" value="Other"><span>Other</span></label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="cf-message">Message <span class="req">*</span></label>
+            <textarea id="cf-message" name="message" required placeholder="A little about you, your college/year, and why you're interested."></textarea>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" data-via="email" class="btn btn-primary btn-form">Submit</button>
+          </div>
+          <p class="form-note">Clicking send opens your email or WhatsApp app with this message pre-filled — review it and hit send there.</p>
+          <div class="form-status" id="formStatus">Opening your app now — if nothing happened, check your pop-up blocker.</div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
 
 <script>
-// ═══════════════════════════════════════
-// DATA
-// ═══════════════════════════════════════
-const TEXTS = {
-  beginner:[
-    'add fall glad hash jazz',
-    'flask glass shall dads fall',
-    'alas flask glad jazz hash adds',
-    'dad falls half glad asks lads',
-  ],
-  intermediate:[
-    'the quick brown fox jumps over the lazy dog',
-    'practice makes perfect when you type with all ten fingers',
-    'touch typing is a skill that improves with daily practice and dedication',
-    'learning to type without looking at the keyboard takes time and patience',
-    'the keyboard is your instrument and your fingers are the musicians playing it',
-    'speed and accuracy both matter when becoming a proficient typist',
-    'every great journey begins with a single step toward the goal you desire',
-    'consistency is the secret weapon of every successful touch typist in the world',
-  ],
-  advanced:[
-    'function quickSort(arr) { return arr.length <= 1 ? arr : [...quickSort(arr.slice(1).filter(x => x <= arr[0])), arr[0], ...quickSort(arr.slice(1).filter(x => x > arr[0]))]; }',
-    'The GDP grew by 3.5% in Q3 2024, surpassing analyst expectations of 2.8%. Tech stocks (+12%) led the rally, while energy (-4%) lagged behind.',
-    'Ctrl+Alt+Del, Shift+F5, Alt+Tab: keyboard shortcuts save 60% of your navigation time when mastered properly!',
-    'import { useState, useEffect, useCallback } from "react"; // Modern React hooks pattern for 2024',
-    'ssh -i ~/.ssh/id_rsa user@192.168.1.100 "sudo apt-get update && sudo apt-get upgrade -y"',
-  ]
-};
+  document.getElementById('year').textContent = new Date().getFullYear();
 
-const GAME_WORDS = ['apple','brave','cloud','dance','eagle','flame','grace','house','index','jewel','knife','light','magic','night','ocean','piano','queen','river','stone','tiger','ultra','vivid','water','xenon','yacht','zebra','speed','touch','typing','master','focus','skill','power','quick','brown','jumps','over','lazy','code','hack','sync','data','flow','byte','loop','call','push','pull','save','load'];
+  // on-site contact form -> mailto / WhatsApp handoff
+  const contactForm = document.getElementById('contactForm');
+  const formStatus = document.getElementById('formStatus');
+  let submitVia = 'email';
 
-const KEY_FINGER = {
-  '`':['lp','~'],'1':['lp','!'],'2':['lr','@'],'3':['lm','#'],'4':['li','$'],'5':['li','%'],
-  '6':['ri','^'],'7':['ri','&'],'8':['rm','*'],'9':['rr','('],'0':['rr',')'],'-':['rp','_'],'=':['rp','+'],
-  'q':['lp'],'w':['lr'],'e':['lm'],'r':['li'],'t':['li'],'y':['ri'],'u':['ri'],'i':['rm'],'o':['rr'],'p':['rp'],
-  '[':['rp'],'\\':['rp'],']':['rp'],
-  'a':['lp'],'s':['lr'],'d':['lm'],'f':['li'],'g':['li'],'h':['ri'],'j':['ri'],'k':['rm'],'l':['rr'],';':['rp'],"'":['rp'],
-  'z':['lp'],'x':['lr'],'c':['lm'],'v':['li'],'b':['li'],'n':['ri'],'m':['ri'],',':['rm'],'.':['rr'],'/':['rp'],
-  ' ':['thumb'],
-};
-
-const FINGER_COLORS = {
-  lp:'#ff4757',lr:'#ff6b35',lm:'#ffd32a',li:'#2ed573',
-  ri:'#00d4ff',rm:'#3742fa',rr:'#a855f7',rp:'#ff6b9d',thumb:'#ffffff'
-};
-const FINGER_NAMES = {
-  lp:'Left Pinky',lr:'Left Ring',lm:'Left Middle',li:'Left Index',
-  ri:'Right Index',rm:'Right Middle',rr:'Right Ring',rp:'Right Pinky',thumb:'Thumbs'
-};
-const FINGER_KEY_MAP = {
-  lp:'` 1 Q A Z',lr:'2 W S X',lm:'3 E D C',li:'4 5 R T F G V B',
-  ri:'6 7 Y U H J N M',rm:'8 I K ,',rr:'9 0 O L .',rp:'- = P ; / [ ] \\',thumb:'Space'
-};
-
-const KEYBOARD_LAYOUT = [
-  ['`','1','2','3','4','5','6','7','8','9','0','-','=','BKSP'],
-  ['TAB','q','w','e','r','t','y','u','i','o','p','[',']','\\'],
-  ['CAPS','a','s','d','f','g','h','j','k','l',';',"'",'ENTER'],
-  ['SHIFT','z','x','c','v','b','n','m',',','.','/',{k:'SHIFT',w:'w18'}],
-  [{k:'CTRL',w:'w15'},{k:'ALT',w:'w13'},{k:'SPACE',w:'space'},{k:'ALT',w:'w13'},{k:'CTRL',w:'w15'}]
-];
-
-const ACHIEVEMENTS = [
-  {id:'first',icon:'🎯',name:'First Practice',desc:'Complete your first session',cond:s=>s.sessions>=1},
-  {id:'wpm30',icon:'⚡',name:'30 WPM',desc:'Reach 30 words per minute',cond:s=>s.bestWpm>=30},
-  {id:'wpm50',icon:'🚀',name:'50 WPM',desc:'Reach 50 words per minute',cond:s=>s.bestWpm>=50},
-  {id:'wpm70',icon:'🔥',name:'70 WPM',desc:'Reach 70 words per minute',cond:s=>s.bestWpm>=70},
-  {id:'acc95',icon:'🎯',name:'95% Accuracy',desc:'Type with 95%+ accuracy',cond:s=>s.bestAcc>=95},
-  {id:'streak7',icon:'🗓',name:'7 Day Streak',desc:'Practice 7 days in a row',cond:s=>s.streak>=7},
-  {id:'words1k',icon:'📚',name:'1000 Words',desc:'Type 1000 total words',cond:s=>s.totalWords>=1000},
-  {id:'speed',icon:'💨',name:'Speed Demon',desc:'Reach 100 WPM',cond:s=>s.bestWpm>=100},
-];
-
-// ═══ STATE ═══
-let state = JSON.parse(localStorage.getItem('tfm_state') || 'null') || {
-  bestWpm:0, bestAcc:0, sessions:0, totalWords:0, totalChars:0,
-  totalTime:0, wpmHistory:[], streak:0, lastDate:'', mode:'intermediate',
-  achievements:[], gameHighScore:0,
-};
-
-let typing = {
-  text:'', pos:0, errors:0, correct:0, startTime:null,
-  timerInterval:null, elapsed:0
-};
-
-let gameState = {active:false,score:0,timer:60,interval:null,words:[],inputInterval:null};
-let currentMode = state.mode || 'intermediate';
-
-// ═══════════════════════════════════════
-// PERSISTENCE
-// ═══════════════════════════════════════
-function save(){localStorage.setItem('tfm_state',JSON.stringify(state))}
-
-function checkStreak(){
-  const today = new Date().toDateString();
-  if(state.lastDate===today) return;
-  const yesterday = new Date(Date.now()-86400000).toDateString();
-  if(state.lastDate===yesterday) state.streak++;
-  else if(state.lastDate!==today) state.streak = 1;
-  state.lastDate = today;
-  save();
-}
-
-// ═══════════════════════════════════════
-// NAVIGATION
-// ═══════════════════════════════════════
-function showScreen(id){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-}
-function showHome(){
-  stopPractice();
-  updateHomePills();
-  showScreen('home');
-}
-function showStats(){updateStatsScreen();showScreen('stats')}
-function startPractice(){
-  showScreen('practice');
-  buildKeyboard();
-  buildFingerGuide();
-  newText();
-  setTimeout(focusInput,100);
-}
-function startGame(){showScreen('game');initGame()}
-
-// ═══════════════════════════════════════
-// HOME
-// ═══════════════════════════════════════
-function selectMode(btn,mode){
-  document.querySelectorAll('.mode-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  currentMode = mode;
-  state.mode = mode;
-  save();
-}
-
-function updateHomePills(){
-  document.getElementById('hs-wpm').textContent = state.bestWpm;
-  document.getElementById('hs-acc').textContent = state.bestAcc+'%';
-  document.getElementById('hs-streak').textContent = state.streak+'🔥';
-  document.getElementById('hs-words').textContent = state.totalWords;
-}
-
-// ═══════════════════════════════════════
-// KEYBOARD BUILD
-// ═══════════════════════════════════════
-function fingerForKey(k){
-  const lk = k.toLowerCase();
-  return KEY_FINGER[lk] ? KEY_FINGER[lk][0] : null;
-}
-function fcClass(f){
-  if(!f) return '';
-  if(f==='thumb') return 'fc-thumb';
-  return 'fc-'+f;
-}
-
-function buildKeyboard(){
-  const kb = document.getElementById('keyboard');
-  kb.innerHTML = '';
-  KEYBOARD_LAYOUT.forEach(row=>{
-    const rowDiv = document.createElement('div');
-    rowDiv.className='kb-row';
-    row.forEach(k=>{
-      const key = typeof k==='string'?k:k.k;
-      const w = typeof k==='object'?k.w:'';
-      const div = document.createElement('div');
-      const lk = key.toLowerCase();
-      const f = fingerForKey(lk==='space'?' ':lk);
-      div.className='key '+(w||'')+' '+fcClass(f);
-      div.id='key-'+key;
-      div.dataset.key=key;
-      div.innerHTML=`<span class="main">${key==='SPACE'?'SPACE':key==='BKSP'?'⌫':key==='ENTER'?'↵':key==='SHIFT'?'⇧':key==='CAPS'?'⇪':key==='TAB'?'↹':key}</span>`;
-      if(f){
-        const dot = document.createElement('span');
-        dot.className='finger-dot';
-        dot.style.background=FINGER_COLORS[f]||'';
-        div.appendChild(dot);
-      }
-      rowDiv.appendChild(div);
-    });
-    kb.appendChild(rowDiv);
+  contactForm.querySelectorAll('button[type="submit"]').forEach(btn => {
+    btn.addEventListener('click', () => { submitVia = btn.dataset.via; });
   });
-}
 
-function buildFingerGuide(){
-  const guide = document.getElementById('finger-guide');
-  guide.innerHTML='';
-  Object.entries(FINGER_KEY_MAP).forEach(([f,keys])=>{
-    const div=document.createElement('div');
-    div.className='guide-item';
-    div.innerHTML=`<div class="guide-dot" style="background:${FINGER_COLORS[f]}"></div>
-      <div><div class="guide-name">${FINGER_NAMES[f]}</div>
-      <div class="guide-keys">${keys}</div></div>`;
-    guide.appendChild(div);
-  });
-}
-
-// ═══════════════════════════════════════
-// PRACTICE LOGIC
-// ═══════════════════════════════════════
-function getTexts(){
-  const pool = TEXTS[currentMode] || TEXTS.intermediate;
-  return pool;
-}
-
-function newText(){
-  const pool = getTexts();
-  typing.text = pool[Math.floor(Math.random()*pool.length)];
-  typing.pos = 0; typing.errors = 0; typing.correct = 0;
-  typing.startTime = null; typing.elapsed = 0;
-  if(typing.timerInterval){clearInterval(typing.timerInterval);typing.timerInterval=null}
-  renderText();
-  document.getElementById('typing-input').value='';
-  updateMetrics(0,100,0,0,0);
-  highlightCurrentKey();
-  highlightFinger();
-}
-
-function renderText(){
-  const disp = document.getElementById('text-display');
-  disp.innerHTML = typing.text.split('').map((c,i)=>{
-    let cls='char';
-    if(c===' ') cls+=' space';
-    if(i===typing.pos) cls+=' current';
-    return `<span class="${cls}" data-i="${i}">${c===' '?'&nbsp;':c}</span>`;
-  }).join('');
-}
-
-function updateChar(idx,cls){
-  const span = document.querySelector(`#text-display [data-i="${idx}"]`);
-  if(!span) return;
-  span.className='char '+(typing.text[idx]===' '?'space ':'')+cls;
-}
-
-function focusInput(){document.getElementById('typing-input').focus()}
-
-document.addEventListener('keydown',e=>{
-  const inp = document.getElementById('typing-input');
-  if(document.getElementById('practice').classList.contains('active')){
-    inp.focus();
-  }
-});
-
-document.getElementById('typing-input').addEventListener('input',handleInput);
-document.getElementById('typing-input').addEventListener('keydown',handleKeyDown);
-
-function handleKeyDown(e){
-  if(e.key==='Backspace'){
-    if(typing.pos>0){
-      typing.pos--;
-      updateChar(typing.pos,'');
-      // re-mark current
-      document.querySelectorAll('#text-display .current').forEach(s=>s.classList.remove('current'));
-      const cur = document.querySelector(`#text-display [data-i="${typing.pos}"]`);
-      if(cur) cur.classList.add('current');
-      highlightCurrentKey();
-      highlightFinger();
-    }
+  contactForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    return;
-  }
-
-  // visual key press
-  const k = e.key.toUpperCase();
-  const keyEl = document.getElementById('key-'+k) || document.getElementById('key-'+e.key.toLowerCase());
-  if(keyEl){
-    keyEl.classList.add('active-key');
-    setTimeout(()=>keyEl.classList.remove('active-key'),100);
-  }
-}
-
-function handleInput(e){
-  const inp = e.target;
-  const val = inp.value;
-  if(!val) return;
-  const char = val[val.length-1];
-  inp.value='';
-
-  if(typing.pos>=typing.text.length) return;
-
-  // start timer
-  if(!typing.startTime){
-    typing.startTime = Date.now();
-    typing.timerInterval = setInterval(()=>{
-      typing.elapsed = Math.floor((Date.now()-typing.startTime)/1000);
-      document.getElementById('time-display').textContent=typing.elapsed+'s';
-    },500);
-  }
-
-  const expected = typing.text[typing.pos];
-  const correct = char === expected;
-
-  // visual
-  const keyId = char===' '?'key-SPACE':'key-'+char.toUpperCase();
-  const kEl = document.getElementById(keyId);
-  if(kEl){
-    kEl.classList.add(correct?'pressed-correct':'pressed-wrong');
-    setTimeout(()=>kEl.classList.remove('pressed-correct','pressed-wrong'),200);
-  }
-
-  if(correct){
-    updateChar(typing.pos,'correct');
-    typing.correct++;
-  } else {
-    updateChar(typing.pos,'wrong');
-    typing.errors++;
-  }
-
-  typing.pos++;
-
-  // update current
-  document.querySelectorAll('#text-display .current').forEach(s=>s.classList.remove('current'));
-  if(typing.pos < typing.text.length){
-    const cur = document.querySelector(`#text-display [data-i="${typing.pos}"]`);
-    if(cur) cur.classList.add('current');
-  }
-
-  // metrics
-  const elapsed = typing.startTime ? (Date.now()-typing.startTime)/60000 : 0.001;
-  const wpm = Math.round((typing.correct/5)/Math.max(elapsed,0.001));
-  const total = typing.correct+typing.errors;
-  const acc = total>0?Math.round((typing.correct/total)*100):100;
-  updateMetrics(wpm,acc,typing.correct,typing.errors,typing.elapsed);
-
-  highlightCurrentKey();
-  highlightFinger();
-
-  if(typing.pos>=typing.text.length){
-    practiceComplete(wpm,acc);
-  }
-}
-
-function updateMetrics(wpm,acc,cor,err,t){
-  document.getElementById('wpm-display').textContent=wpm;
-  document.getElementById('acc-display').textContent=acc+'%';
-  document.getElementById('cor-display').textContent=cor;
-  document.getElementById('err-display').textContent=err;
-  document.getElementById('time-display').textContent=t+'s';
-}
-
-function highlightCurrentKey(){
-  document.querySelectorAll('.key').forEach(k=>k.style.boxShadow='');
-  if(typing.pos>=typing.text.length) return;
-  const ch = typing.text[typing.pos];
-  const id = ch===' '?'key-SPACE':'key-'+ch.toUpperCase();
-  const el = document.getElementById(id);
-  if(el){
-    const f = fingerForKey(ch===' '?' ':ch.toLowerCase());
-    const col = f?FINGER_COLORS[f]:'#fff';
-    el.style.boxShadow=`0 0 20px ${col}, 0 0 8px ${col}`;
-    el.style.borderColor=col;
-  }
-}
-
-function highlightFinger(){
-  document.querySelectorAll('.finger').forEach(f=>f.classList.remove('active'));
-  if(typing.pos>=typing.text.length) return;
-  const ch = typing.text[typing.pos];
-  const f = fingerForKey(ch===' '?' ':ch.toLowerCase());
-  if(!f) return;
-  if(f==='thumb'){
-    document.getElementById('f-lthumb').classList.add('active');
-    document.getElementById('f-rthumb').classList.add('active');
-  } else {
-    const el = document.getElementById('f-'+f);
-    if(el) el.classList.add('active');
-  }
-}
-
-function stopPractice(){
-  if(typing.timerInterval){clearInterval(typing.timerInterval);typing.timerInterval=null}
-}
-
-function practiceComplete(wpm,acc){
-  stopPractice();
-  const words = typing.text.trim().split(/\s+/).length;
-
-  // update state
-  if(wpm>state.bestWpm) state.bestWpm=wpm;
-  if(acc>state.bestAcc) state.bestAcc=acc;
-  state.sessions++;
-  state.totalWords += words;
-  state.totalChars += typing.correct;
-  state.totalTime += typing.elapsed;
-  state.wpmHistory.push(wpm);
-  if(state.wpmHistory.length>20) state.wpmHistory.shift();
-  checkStreak();
-  checkAchievements();
-  save();
-
-  showToast(`✓ Done! ${wpm} WPM · ${acc}% accuracy`);
-  setTimeout(newText,1500);
-}
-
-// ═══════════════════════════════════════
-// ACHIEVEMENTS
-// ═══════════════════════════════════════
-function checkAchievements(){
-  let newUnlock=false;
-  ACHIEVEMENTS.forEach(a=>{
-    if(!state.achievements.includes(a.id) && a.cond(state)){
-      state.achievements.push(a.id);
-      newUnlock=true;
-      setTimeout(()=>showToast('🏆 Achievement: '+a.name),500);
+    if(!contactForm.checkValidity()){
+      contactForm.reportValidity();
+      return;
     }
-  });
-  if(newUnlock) save();
-}
 
-// ═══════════════════════════════════════
-// STATS SCREEN
-// ═══════════════════════════════════════
-function updateStatsScreen(){
-  const h = state.wpmHistory;
-  const avgWpm = h.length ? Math.round(h.reduce((a,b)=>a+b,0)/h.length) : 0;
-  const avgAccArr = [state.bestAcc]; // simplified
-  document.getElementById('st-bestwpm').textContent=state.bestWpm;
-  document.getElementById('st-avgwpm').textContent=avgWpm;
-  document.getElementById('st-bestacc').textContent=state.bestAcc+'%';
-  document.getElementById('st-avgacc').textContent=Math.round(state.bestAcc*0.95)+'%';
-  document.getElementById('st-sessions').textContent=state.sessions;
-  document.getElementById('st-words').textContent=state.totalWords;
-  document.getElementById('st-chars').textContent=state.totalChars;
-  document.getElementById('st-time').textContent=Math.round(state.totalTime/60)+'m';
-  document.getElementById('streak-num').textContent=state.streak;
+    const data = new FormData(contactForm);
+    const name = data.get('name').trim();
+    const email = data.get('email').trim();
+    const phone = data.get('phone').trim();
+    const role = data.get('role');
+    const background = data.get('background');
+    const message = data.get('message').trim();
 
-  // chart
-  const chart = document.getElementById('wpm-chart');
-  chart.innerHTML='';
-  const maxWpm = Math.max(...h,1);
-  h.forEach(w=>{
-    const bar=document.createElement('div');
-    bar.className='wpm-bar';
-    bar.style.height=((w/maxWpm)*100)+'%';
-    bar.dataset.val=w+' WPM';
-    chart.appendChild(bar);
-  });
-  if(!h.length){chart.innerHTML='<span style="color:var(--text-dim);font-size:.8rem;align-self:center">No data yet — complete a practice session!</span>'}
+    const bodyLines = [
+      `Name: ${name}`,
+      `Email: ${email}`,
+      phone ? `Phone: ${phone}` : null,
+      `Background: ${background}`,
+      `Interested role: ${role}`,
+      '',
+      message
+    ].filter(Boolean).join('\n');
 
-  // progress bars
-  const speedPct = Math.min(Math.round((state.bestWpm/120)*100),100);
-  const accPct = state.bestAcc;
-  const conPct = Math.min(Math.round((state.sessions/50)*100),100);
-  document.getElementById('prog-speed').textContent=speedPct+'%';
-  document.getElementById('prog-acc').textContent=accPct+'%';
-  document.getElementById('prog-con').textContent=conPct+'%';
-  document.getElementById('bar-speed').style.width=speedPct+'%';
-  document.getElementById('bar-acc').style.width=accPct+'%';
-  document.getElementById('bar-con').style.width=conPct+'%';
-
-  // achievements
-  const grid=document.getElementById('ach-grid');
-  grid.innerHTML='';
-  ACHIEVEMENTS.forEach(a=>{
-    const unlocked=state.achievements.includes(a.id);
-    const div=document.createElement('div');
-    div.className='badge'+(unlocked?' unlocked':'');
-    div.innerHTML=`<span class="badge-icon">${a.icon}</span>
-      <div><div class="badge-name">${a.name}</div><div class="badge-desc">${a.desc}</div></div>`;
-    grid.appendChild(div);
-  });
-}
-
-// ═══════════════════════════════════════
-// GAME MODE
-// ═══════════════════════════════════════
-function initGame(){
-  gameState.score=0;gameState.timer=60;gameState.words=[];
-  document.getElementById('game-score-display').textContent='0';
-  document.getElementById('game-timer-display').textContent='60';
-  document.getElementById('game-over').classList.add('hidden');
-  document.getElementById('game-input').value='';
-  document.getElementById('game-area').querySelectorAll('.falling-word').forEach(w=>w.remove());
-  if(gameState.interval) clearInterval(gameState.interval);
-  if(gameState.inputInterval) clearInterval(gameState.inputInterval);
-
-  gameState.active=true;
-  spawnWord();
-  gameState.interval = setInterval(()=>{
-    gameState.timer--;
-    document.getElementById('game-timer-display').textContent=gameState.timer;
-    if(gameState.timer<=0) endGame();
-  },1000);
-
-  let spawnDelay=1800;
-  const spawnLoop=()=>{
-    if(!gameState.active) return;
-    spawnWord();
-    spawnDelay=Math.max(700,spawnDelay-20);
-    setTimeout(spawnLoop,spawnDelay);
-  };
-  setTimeout(spawnLoop,spawnDelay);
-
-  document.getElementById('game-input').focus();
-}
-
-function spawnWord(){
-  const area = document.getElementById('game-area');
-  const word = GAME_WORDS[Math.floor(Math.random()*GAME_WORDS.length)];
-  const el = document.createElement('div');
-  el.className='falling-word';
-  el.textContent=word;
-  el.style.left=Math.random()*85+'%';
-  const dur = 4+Math.random()*3;
-  el.style.animationDuration=dur+'s';
-  area.appendChild(el);
-  gameState.words.push({el,word});
-
-  el.addEventListener('animationend',()=>{
-    if(gameState.active){
-      // word escaped
-      el.remove();
-      gameState.words=gameState.words.filter(w=>w.el!==el);
+    if(submitVia === 'whatsapp'){
+      const waText = encodeURIComponent(`Hi, I'm ${name} (${background} background). Interested role: ${role}.\n\n${message}`);
+      window.open(`https://wa.me/919494717912?text=${waText}`, '_blank');
+    } else {
+      const subject = encodeURIComponent(`Internship enquiry — ${name}`);
+      const body = encodeURIComponent(bodyLines);
+      window.location.href = `mailto:urbanitsync@gmail.com?subject=${subject}&body=${body}`;
     }
+
+    formStatus.classList.add('show');
   });
-}
 
-document.getElementById('game-input').addEventListener('input',e=>{
-  if(!gameState.active) return;
-  const val=e.target.value.trim();
-  const match=gameState.words.find(w=>w.word===val);
-  if(match){
-    match.el.remove();
-    gameState.words=gameState.words.filter(w=>w!==match);
-    gameState.score+=10;
-    document.getElementById('game-score-display').textContent=gameState.score;
-    e.target.value='';
-    showToast('+10');
-  }
-});
+  // mobile nav toggle
+  const navToggle = document.getElementById('navToggle');
+  const navPanel = document.getElementById('navMobilePanel');
+  navToggle.addEventListener('click', () => {
+    const isOpen = navPanel.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+  navPanel.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      navPanel.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
 
-function endGame(){
-  gameState.active=false;
-  clearInterval(gameState.interval);
-  document.getElementById('game-area').querySelectorAll('.falling-word').forEach(w=>w.remove());
-  document.getElementById('game-over').classList.remove('hidden');
-  document.getElementById('go-score').textContent='Score: '+gameState.score;
-  if(gameState.score>state.gameHighScore){state.gameHighScore=gameState.score;save()}
-}
-
-function restartGame(){
-  document.getElementById('game-over').classList.add('hidden');
-  initGame();
-}
-
-// ═══════════════════════════════════════
-// TOAST
-// ═══════════════════════════════════════
-function showToast(msg){
-  const t=document.getElementById('toast');
-  t.textContent=msg;t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2000);
-}
-
-// ═══════════════════════════════════════
-// INIT
-// ═══════════════════════════════════════
-checkStreak();
-updateHomePills();
-// set active mode btn
-document.querySelectorAll('.mode-btn').forEach(b=>{
-  if(b.dataset.mode===currentMode) b.classList.add('active');
-  else b.classList.remove('active');
-});
+  // keep only one department open at a time
+  const deptEls = document.querySelectorAll('details.dept');
+  deptEls.forEach(el => {
+    el.addEventListener('toggle', () => {
+      if(el.open){
+        deptEls.forEach(other => { if(other !== el) other.open = false; });
+      }
+    });
+  });
 </script>
+
 </body>
 </html>
